@@ -198,7 +198,7 @@ function renderCards(){
     });
     div.addEventListener('click', ()=>{
       if(deck.find(d=>d.name===c.name && (c.type==='開始'||c.type==='固有'))){
-        alert('デッキにすでにカードが存在します。コピー不可');
+        alert('デッキにすでにカードが存在します。コピー不可もしくはデッキ内でコピーしてください。');
       } else {
         addToDeck({...c, state:0, isCopy:false}, true);
       }
@@ -223,6 +223,13 @@ deckDiv.addEventListener('drop', e=>{
   } else if(from==='deck'){
     const idx = e.dataTransfer.getData('text/plain');
     const srcCard = deck[idx];
+
+    // 開始1〜3はコピー不可
+    if(srcCard.name === '開始1' || srcCard.name === '開始2' || srcCard.name === '開始3'){
+      alert('このカードはコピーできません。');
+      return;
+    }
+
     addToDeck({...srcCard, isCopy:true}, false);
   }
 });
@@ -262,7 +269,11 @@ function renderDeck(){
       }
 
       div.addEventListener('click', ()=>{
-        if(c.type==='開始') return;
+        // 開始1〜3はヒラメキ・神ヒラメキ不可
+        if(c.name === '開始1' || c.name === '開始2' || c.name === '開始3') return;
+        // 固有5はヒラメキ・神ヒラメキ不可
+        if(c.name === '固有5') return;
+
         c.state = (c.state+1)%3;
         div.className = 'deck-card ' + stateClasses[c.state];
         if(c.isCopy){
