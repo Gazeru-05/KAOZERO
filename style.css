@@ -152,7 +152,6 @@ body {
   .state-hirameki {
     background: linear-gradient(135deg,#ffd700,#ffec8b);
     color:#000;
-    text-shadow:1px 1px #444;
     animation: glow 1.5s infinite alternate;
   }
   .state-shin {
@@ -184,4 +183,5 @@ body {
     font-size:12px;
     cursor:pointer;
   }
+
   
