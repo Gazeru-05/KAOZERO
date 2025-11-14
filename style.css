@@ -1,187 +1,247 @@
 body {
-    margin:0;
-    font-family:'Segoe UI',sans-serif;
-    background:#111;
-    color:#f4f4f4;
-  }
-  
-  header {
-    padding:10px 20px;
-    font-size:1.5rem;
-    font-weight:bold;
-    background: linear-gradient(90deg,#222,#444);
-  }
-  
-  .top-bar {
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:10px 20px;
-    background:#1a1a1a;
-    border-bottom:1px solid #555;
-    flex-wrap:wrap;
-  }
-  
-  .character-tabs button {
-    margin:0 5px;
-    padding:5px 12px;
-    cursor:pointer;
-    background:#333;
-    color:#fff;
-    border:none;
-    border-radius:5px;
-    transition:0.3s;
-  }
-  .character-tabs button:hover { background:#555; }
-  .character-tabs button.active {
-    background:#ff9900;
-    transform:scale(1.1);
-  }
-  
-  .info-panel {
-    display:flex;
-    gap:15px;
-    align-items:center;
-    flex-wrap:wrap;
-    margin-left:auto;
-  }
-  .info-panel .toggle-mode {
-    margin-left:auto; /* 右詰め */
-    display:flex;
-    align-items:center;
-    gap:5px;
-    justify-content:flex-end;
-  }
-  
-  #tierSelect {
-    padding:4px 6px;
-    border-radius:5px;
-    background:#333;
-    color:#fff;
-    border:none;
-    cursor:pointer;
-  }
-  
-  #resetDeckBtn, #undoBtn {
-    padding:4px 8px;
-    border-radius:5px;
-    color:#fff;
-    border:none;
-    cursor:pointer;
-  }
-  #resetDeckBtn { background:#c00; }
-  #undoBtn { background:#00c; }
-  
-  .container {
-    display:flex;
-    gap:20px;
-    padding:20px;
-  }
-  .card-list, .deck-area {
-    background:#1a1a1a;
-    border-radius:10px;
-    padding:15px;
-    flex:1;
-    max-height:75vh;
-    overflow-y:auto;
-  }
-  
-  h2 {
-    margin-top:0;
-    border-bottom:1px solid #555;
-    padding-bottom:5px;
-  }
-  
-  .card, .deck-card {
-    border-radius:12px;
-    width:120px;
-    height:180px;
-    margin:5px;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-    cursor:grab;
-    position:relative;
-    font-weight:bold;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.5);
-    transition: transform 0.3s, box-shadow 0.3s, background 0.5s;
-    font-family:'Arial Black','Segoe UI',sans-serif;
-    font-size:14px;
-    background:#66ccff;
-    color:#000;
-  }
-  
-  .card:hover, .deck-card:hover {
-    transform: translateY(-6px) scale(1.03);
-    box-shadow:0 10px 14px rgba(0,0,0,0.7);
-  }
-  
-  .copy-mark {
-    position:absolute;
-    top:5px;
-    right:5px;
-    background:#ff4500;
-    color:#fff;
-    font-size:10px;
-    padding:2px 4px;
-    border-radius:3px;
-    animation: float 1.5s infinite alternate;
-  }
-  @keyframes float {
-    0%{ transform: translateY(0); }
-    50%{ transform: translateY(-5px); }
-    100%{ transform: translateY(0); }
-  }
-  
-  .card-container, .deck-row {
-    display:flex;
-    flex-wrap:wrap;
-    gap:12px;
-  }
-  .card-container .card, .deck-row .deck-card {
-    flex:1 0 calc(25% - 12px);
-    max-width:120px;
-  }
-  
-  .state-normal {
-    background: linear-gradient(135deg,#66ccff,#99ddff);
-    color:#000;
-  }
-  .state-hirameki {
-    background: linear-gradient(135deg,#ffd700,#ffec8b);
-    color:#000;
-    animation: glow 1.5s infinite alternate;
-  }
-  .state-shin {
-    background: linear-gradient(135deg,#9b30ff,#d77fff);
-    color:#fff;
-    text-shadow:1px 1px #222;
-    animation: rainbowGlow 2s infinite alternate;
-  }
-  @keyframes glow {
-    0%{box-shadow:0 0 5px #ffd700;}
-    100%{box-shadow:0 0 20px #ffd700;}
-  }
-  @keyframes rainbowGlow {
-    0%{box-shadow:0 0 5px #ff69b4;}
-    50%{box-shadow:0 0 15px #9b30ff;}
-    100%{box-shadow:0 0 25px #ff69b4;}
-  }
-  
-  .delete-btn {
-    position:absolute;
-    left:5px;
-    bottom:5px;
-    background:#c00;
-    border:none;
-    color:#fff;
-    border-radius:50%;
-    width:18px;
-    height:18px;
-    font-size:12px;
-    cursor:pointer;
-  }
+  margin:0;
+  font-family:'Segoe UI',sans-serif;
+  background:#111;
+  color:#f4f4f4;
+}
 
-  
+header {
+  padding:10px 20px;
+  font-size:1.5rem;
+  font-weight:bold;
+  background: linear-gradient(90deg,#222,#444);
+}
+
+.top-bar {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:10px 20px;
+  background:#1a1a1a;
+  border-bottom:1px solid #555;
+  flex-wrap:wrap;
+}
+
+/* キャラクター折り畳み */
+.character-tabs-wrapper {
+  position: relative;
+}
+#toggleCharacterTabs {
+  background:#333;
+  color:#fff;
+  border:none;
+  padding:5px 12px;
+  border-radius:5px;
+  cursor:pointer;
+}
+.character-tabs {
+  display:none;
+  position:absolute;
+  top:35px;
+  left:0;
+  max-height:200px;
+  overflow-y:auto;
+  background:#222;
+  border:1px solid #555;
+  border-radius:5px;
+  padding:5px;
+  z-index:10;
+  width:150px;
+  flex-direction: column;
+}
+.character-tabs button {
+  margin:3px 0;
+  padding:5px 10px;
+  cursor:pointer;
+  background:#333;
+  color:#fff;
+  border:none;
+  border-radius:5px;
+  width:100%;
+  text-align:left;
+  transition:0.3s;
+}
+.character-tabs button:hover { background:#555; }
+.character-tabs button.active {
+  background:#ff9900;
+  transform:scale(1.05);
+}
+
+.info-panel {
+  display:flex;
+  gap:15px;
+  align-items:center;
+  flex-wrap:wrap;
+  margin-left:auto;
+}
+.info-panel .toggle-mode {
+  margin-left:auto;
+  display:flex;
+  align-items:center;
+  gap:5px;
+  justify-content:flex-end;
+}
+
+#tierSelect {
+  padding:4px 6px;
+  border-radius:5px;
+  background:#333;
+  color:#fff;
+  border:none;
+  cursor:pointer;
+}
+
+#resetDeckBtn, #undoBtn {
+  padding:4px 8px;
+  border-radius:5px;
+  color:#fff;
+  border:none;
+  cursor:pointer;
+}
+#resetDeckBtn { background:#c00; }
+#undoBtn { background:#00c; }
+
+.container {
+  display:flex;
+  gap:20px;
+  padding:20px;
+}
+.card-list, .deck-area {
+  background:#1a1a1a;
+  border-radius:10px;
+  padding:15px;
+  flex:1;
+  max-height:75vh;
+  overflow-y:auto;
+}
+
+h2 {
+  margin-top:0;
+  border-bottom:1px solid #555;
+  padding-bottom:5px;
+}
+
+.card, .deck-card {
+  border-radius:12px;
+  width:120px;
+  height:180px;
+  margin:5px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  cursor:grab;
+  position:relative;
+  font-weight:bold;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.5);
+  transition: transform 0.3s, box-shadow 0.3s, background 0.5s;
+  font-family:'Arial Black','Segoe UI',sans-serif;
+  font-size:14px;
+  background:#66ccff;
+  color:#000;
+}
+
+.card img, .deck-card img {
+  width:100%;
+  height:100%;
+  border-radius:12px;
+}
+
+.card:hover, .deck-card:hover {
+  transform: translateY(-6px) scale(1.03);
+  box-shadow:0 10px 14px rgba(0,0,0,0.7);
+}
+
+.copy-mark {
+  position:absolute;
+  top:5px;
+  right:5px;
+  background:#ff4500;
+  color:#fff;
+  font-size:10px;
+  padding:2px 4px;
+  border-radius:3px;
+  animation: float 1.5s infinite alternate;
+}
+
+.change-mark {
+  position:absolute;
+  top:5px;
+  left:5px;
+  background:#00ff00;
+  color:#000;
+  font-size:10px;
+  padding:2px 4px;
+  border-radius:3px;
+  animation: float 1.5s infinite alternate;
+}
+
+@keyframes float {
+  0%{ transform: translateY(0); }
+  50%{ transform: translateY(-5px); }
+  100%{ transform: translateY(0); }
+}
+
+.card-container, .deck-row {
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+}
+.card-container .card, .deck-row .deck-card {
+  flex:1 0 calc(25% - 12px);
+  max-width:120px;
+}
+
+.state-normal {
+  background: linear-gradient(135deg,#66ccff,#99ddff);
+  color:#000;
+}
+.state-hirameki {
+  background: linear-gradient(135deg,#ffd700,#ffec8b);
+  color:#000;
+  animation: glow 1.5s infinite alternate;
+}
+.state-shin {
+  background: linear-gradient(135deg,#9b30ff,#d77fff);
+  color:#fff;
+  text-shadow:1px 1px #222;
+  animation: rainbowGlow 2s infinite alternate;
+}
+
+@keyframes glow {
+  0%{box-shadow:0 0 5px #ffd700;}
+  100%{box-shadow:0 0 20px #ffd700;}
+}
+@keyframes rainbowGlow {
+  0%{box-shadow:0 0 5px #ff69b4;}
+  50%{box-shadow:0 0 15px #9b30ff;}
+  100%{box-shadow:0 0 25px #ff69b4;}
+}
+
+.delete-btn {
+  position:absolute;
+  left:5px;
+  bottom:5px;
+  background:#c00;
+  border:none;
+  color:#fff;
+  border-radius:50%;
+  width:18px;
+  height:18px;
+  font-size:12px;
+  cursor:pointer;
+}
+
+.fixed-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 8px 0;
+  text-align: center;
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  font-size: 12px;
+  z-index: 9999;
+}
