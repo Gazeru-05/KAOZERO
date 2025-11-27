@@ -314,7 +314,7 @@ characters.forEach(c=>{
 });
 
 // Tier・モード設定
-const tiers = 15;
+const tiers = 25;
 let currentTier = 1;
 let unlimitedMode = false;
 const tierSelect = document.getElementById('tierSelect');
@@ -702,3 +702,4 @@ document.getElementById('resetDeckBtn').addEventListener('click', resetDeck);
 // 初期表示
 renderCards();
 resetDeck();
+
