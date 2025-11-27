@@ -89,6 +89,8 @@ header {
   color:#fff;
   border:none;
   cursor:pointer;
+  max-height: 200px;  /* 最大の高さ（好きに変えてOK） */
+  overflow-y: auto;   /* 数が多い時はスクロールバー */
 }
 
 #resetDeckBtn, #undoBtn {
@@ -244,4 +246,30 @@ h2 {
   color: #fff;
   font-size: 12px;
   z-index: 9999;
+}
+
+/* --- Webkit（Chrome / Edge / Safari）共通 --- */
+*::-webkit-scrollbar {
+    width: 6px;       /* スクロールバーの太さ */
+    height: 6px;      /* 横スクロールバーがある要素にも適用 */
+}
+
+*::-webkit-scrollbar-track {
+    background: #222; /* 背景 */
+    border-radius: 10px;
+}
+
+*::-webkit-scrollbar-thumb {
+    background: #555; /* つまむ部分 */
+    border-radius: 10px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+    background: #777; /* hover で少し明るく */
+}
+
+/* --- Firefox 用 --- */
+* {
+    scrollbar-width: thin;             /* 細くする（auto / thin） */
+    scrollbar-color: #555 #222;        /* つまみ色 / 背景色 */
 }
