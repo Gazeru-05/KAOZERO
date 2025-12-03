@@ -1,5 +1,5 @@
 const characters = ['アミール','オーウェン','オルレア','カイロン','カシウス','カリーペ','セレーナ','トレサ','ニア','ハル','ヒューゴ','ベリル','ベロニカ','マグナ','マリベル','ミカ','メイリン','ユキ','リン','ルーカス','ルーク','レイ','レノア','チズル'];
-let currentCharacter = 'リン';
+let currentCharacter = 'チズル';
 
 // 内部IDは共通で開始1～3、固有1～5、共有、モンスター
 const cardNameMap = {
@@ -715,5 +715,6 @@ document.getElementById('resetDeckBtn').addEventListener('click', resetDeck);
 // 初期表示
 renderCards();
 resetDeck();
+
 
 
